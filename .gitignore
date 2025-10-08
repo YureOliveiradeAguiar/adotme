@@ -1,8 +1,13 @@
-# Nestjs specific
-/dist
+# Nestjs + Angular
 /node_modules
-/build
+/dist
 /tmp
+
+# Nestjs specific
+/build
+
+# Angular specific
+/.angular/cache
 
 # Logs
 logs
