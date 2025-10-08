@@ -1,0 +1,66 @@
+<div class="home">
+    <nav class="navbar">
+        <div class="logo">🐾 AdoteJá</div>
+        <ul class="nav-links">
+            <li><a routerLink="">Início</a></li>
+            <li><a routerLink="/animals">Animais</a></li>
+            <li><a routerLink="/about">Sobre</a></li>
+            <li><a routerLink="/adopt">Adotar</a></li>
+            <li><a routerLink="/contact">Contato</a></li>
+        </ul>
+        <button class="btn-donate">Doe</button>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-text">
+            <h1>Dê uma chance a quem não pode escolher</h1>
+            <p>Todos os anos, milhares de animais aguardam por um lar que os ame.</p>
+            <button class="btn-primary">Ver Animais Aguadando Adotar</button>
+        </div>
+        <div class="hero-image">
+            <img src="assets/hero-animals.jpg" alt="Animais para adoção">
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="feature-item">
+            <h2>Adote</h2>
+            <p>Encontre animais carinhosos prontos para um novo lar.</p>
+        </div>
+        <div class="feature-item">
+            <h2>Denuncie Maus Tratos</h2>
+            <p>Ajude a proteger animais em situações de risco.</p>
+        </div>
+        <div class="feature-item">
+            <h2>Eduque</h2>
+            <p>Dicas de cuidados, comportamento e bem-estar animal.</p>
+        </div>
+    </section>
+
+    <section class="latest-animals">
+        <h2>Animais Disponíveis</h2>
+        <div class="animal-cards">
+            <!-- Aqui vai *ngFor para exibir cards de animais -->
+            <div class="animal-card">
+                <img src="assets/animal1.jpg" alt="Nome Animal">
+                <div class="card-info">
+                    <h3>Fido</h3>
+                    <p>Cachorro • 2 anos</p>
+                    <button class="btn-secondary">Ver Detalhes</button>
+                </div>
+            </div>
+            <!-- repetir animal-card -->
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a routerLink="/about">Sobre</a> |
+            <a routerLink="/contact">Contato</a> |
+            <a href="#">Privacidade</a>
+        </div>
+        <div class="footer-copy">
+            © 2025 AdoteJá. Todos os direitos reservados.
+        </div>
+    </footer>
+</div>
