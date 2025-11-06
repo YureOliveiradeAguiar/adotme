@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-animal-detail',
   imports: [],
   templateUrl: './animal-detail.html',
-  styleUrl: './animal-detail.css'
+  styleUrl: './animal-detail.scss'
 })
 export class AnimalDetail {
 

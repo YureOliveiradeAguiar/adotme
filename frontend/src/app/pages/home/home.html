@@ -1,27 +1,11 @@
-<section class="header">
-    <div class="header-content">
-        <div class="logo">
-            <i class="fas fa-paw"></i>
-            <h1>ADOTE JÁ</h1>
-        </div>
-        <button class="menu-toggle" aria-label="Menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-    </div>
-</section>
+<app-header /> <!--TODO-->
 
-<div class="hero">
-    <h2>Encontre seu novo melhor amigo</h2>
-    <p>Adotar é um gesto simples que transforma duas vidas: a sua e a dele.</p>
-</div>
+<app-hero />
 
-<section class="container">
-    <nav class="adoption-nav">
-        <button class="adoption-button">ADOTE UM PET</button>
-    </nav>
-
+<nav class="adoption-nav">
+    <button class="adoption-button">ADOTE UM PET</button>
+</nav>
+<div class="container">
     <div class="search-bar">
         <i class="fas fa-search"></i>
         <input type="text" placeholder="Buscar">
@@ -36,73 +20,9 @@
     </div>
 
     <div class="pet-list">
-        <a href="detalhes_pet.html" class="pet-card-link">
-            <div class="pet-card">
-                <img [src]="frodoImage" alt="Foto do cão Frodo, de porte médio e adulto." class="pet-image">
-                <div class="pet-info">
-                    <h3 class="pet-name">Frodo</h3>
-                    <div class="pet-details">
-                        <div class="detail-item">
-                            <i class="fas fa-dog"></i>
-                            <span>CÃO - SRD</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>PORTE MÉDIO</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-mars"></i>
-                            <span>MACHO</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>ADULTO</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <div class="pet-card">
-            <img src="assets/foto_venus.jpg" alt="Foto da gata Vênus, filhote, preta e branca." class="pet-image">
-            <div class="pet-info">
-                <h3 class="pet-name">Vênus</h3>
-                <div class="pet-details">
-                    <div class="detail-item">
-                        <i class="fas fa-cat"></i>
-                        <span>GATO - SRD</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-ruler-combined"></i>
-                        <span>PORTE PEQUENO</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-venus"></i>
-                        <span>FÊMEA</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>FILHOTE</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-pet-card />
+        <app-pet-card />
     </div>
-</section>
+</div>
 
-<section class="footer">
-    <div class="footer-content">
-        <p>&copy; 2024 Adote Já.</p>
-        <div class="footer-links">
-            <a href="admin_login.html">Login Admin</a> <span class="separator">|</span>
-            <a href="#">Termos de Uso</a>
-            <span class="separator">|</span>
-            <a href="#">Política de Privacidade</a>
-        </div>
-        <div class="social-icons">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        </div>
-    </div>
-</section>
+<app-footer />
