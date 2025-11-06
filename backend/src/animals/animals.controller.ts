@@ -4,7 +4,7 @@ import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
 
 
-@Controller('animals')
+@Controller('animals') // 'URL base/animals'
 export class AnimalsController {
 	constructor(private readonly animalsService: AnimalsService) { }
 

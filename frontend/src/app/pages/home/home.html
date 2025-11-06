@@ -1,66 +1,108 @@
-<div class="home">
-    <nav class="navbar">
-        <div class="logo">🐾 AdoteJá</div>
-        <ul class="nav-links">
-            <li><a routerLink="">Início</a></li>
-            <li><a routerLink="/animals">Animais</a></li>
-            <li><a routerLink="/about">Sobre</a></li>
-            <li><a routerLink="/adopt">Adotar</a></li>
-            <li><a routerLink="/contact">Contato</a></li>
-        </ul>
-        <button class="btn-donate">Doe</button>
+<section class="header">
+    <div class="header-content">
+        <div class="logo">
+            <i class="fas fa-paw"></i>
+            <h1>ADOTE JÁ</h1>
+        </div>
+        <button class="menu-toggle" aria-label="Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+</section>
+
+<div class="hero">
+    <h2>Encontre seu novo melhor amigo</h2>
+    <p>Adotar é um gesto simples que transforma duas vidas: a sua e a dele.</p>
+</div>
+
+<section class="container">
+    <nav class="adoption-nav">
+        <button class="adoption-button">ADOTE UM PET</button>
     </nav>
 
-    <header class="hero">
-        <div class="hero-text">
-            <h1>Dê uma chance a quem não pode escolher</h1>
-            <p>Todos os anos, milhares de animais aguardam por um lar que os ame.</p>
-            <button class="btn-primary">Ver Animais Aguadando Adotar</button>
-        </div>
-        <div class="hero-image">
-            <img src="assets/hero-animals.jpg" alt="Animais para adoção">
-        </div>
-    </header>
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Buscar">
+    </div>
 
-    <section class="features">
-        <div class="feature-item">
-            <h2>Adote</h2>
-            <p>Encontre animais carinhosos prontos para um novo lar.</p>
-        </div>
-        <div class="feature-item">
-            <h2>Denuncie Maus Tratos</h2>
-            <p>Ajude a proteger animais em situações de risco.</p>
-        </div>
-        <div class="feature-item">
-            <h2>Eduque</h2>
-            <p>Dicas de cuidados, comportamento e bem-estar animal.</p>
-        </div>
-    </section>
+    <div class="results-header">
+        <p class="results-count">20 resultados</p>
+        <button class="filter-sort-button">
+            <i class="fas fa-sliders-h"></i>
+            FILTRAR E ORDENAR
+        </button>
+    </div>
 
-    <section class="latest-animals">
-        <h2>Animais Disponíveis</h2>
-        <div class="animal-cards">
-            <!-- Aqui vai *ngFor para exibir cards de animais -->
-            <div class="animal-card">
-                <img src="assets/animal1.jpg" alt="Nome Animal">
-                <div class="card-info">
-                    <h3>Fido</h3>
-                    <p>Cachorro • 2 anos</p>
-                    <button class="btn-secondary">Ver Detalhes</button>
+    <div class="pet-list">
+        <a href="detalhes_pet.html" class="pet-card-link">
+            <div class="pet-card">
+                <img [src]="frodoImage" alt="Foto do cão Frodo, de porte médio e adulto." class="pet-image">
+                <div class="pet-info">
+                    <h3 class="pet-name">Frodo</h3>
+                    <div class="pet-details">
+                        <div class="detail-item">
+                            <i class="fas fa-dog"></i>
+                            <span>CÃO - SRD</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>PORTE MÉDIO</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-mars"></i>
+                            <span>MACHO</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>ADULTO</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- repetir animal-card -->
-        </div>
-    </section>
+        </a>
 
-    <footer class="site-footer">
+        <div class="pet-card">
+            <img src="assets/foto_venus.jpg" alt="Foto da gata Vênus, filhote, preta e branca." class="pet-image">
+            <div class="pet-info">
+                <h3 class="pet-name">Vênus</h3>
+                <div class="pet-details">
+                    <div class="detail-item">
+                        <i class="fas fa-cat"></i>
+                        <span>GATO - SRD</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-ruler-combined"></i>
+                        <span>PORTE PEQUENO</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-venus"></i>
+                        <span>FÊMEA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>FILHOTE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Adote Já.</p>
         <div class="footer-links">
-            <a routerLink="/about">Sobre</a> |
-            <a routerLink="/contact">Contato</a> |
-            <a href="#">Privacidade</a>
+            <a href="admin_login.html">Login Admin</a> <span class="separator">|</span>
+            <a href="#">Termos de Uso</a>
+            <span class="separator">|</span>
+            <a href="#">Política de Privacidade</a>
         </div>
-        <div class="footer-copy">
-            © 2025 AdoteJá. Todos os direitos reservados.
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
         </div>
-    </footer>
-</div>
+    </div>
+</section>

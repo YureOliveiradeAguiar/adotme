@@ -5,12 +5,18 @@ import { UpdateAnimalDto } from './dto/update-animal.dto';
 
 @Injectable()
 export class AnimalsService {
+	private animals = [
+		{ id: 1, name: 'Fido', type: 'Dog', age: 3 },
+		{ id: 2, name: 'Mittens', type: 'Cat', age: 4 },
+		{ id: 3, name: 'Maquiavel', type: 'Dragon', age: 1687 }
+	];
+
 	create(createAnimalDto: CreateAnimalDto) {
 		return 'This action adds a new animal';
 	}
 
 	findAll() {
-		return `This action returns all animals`;
+		return this.animals;
 	}
 
 	findOne(id: number) {
