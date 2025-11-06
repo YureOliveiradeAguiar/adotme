@@ -1,2 +1,2 @@
-<h2><strong>Feira de Adoção Integrada</strong></h2>
-Nosso projeto A3
+<h2><strong>Adotme</strong></h2>
+Site de administração e divulgação para a feira de adoção Integrada orquestrada inteiramente pelos alunos do ecossitema ânima.
