@@ -34,60 +34,13 @@
             FILTRAR E ORDENAR
         </button>
     </div>
-
     <div class="pet-list">
-        <a href="detalhes_pet.html" class="pet-card-link">
-            <div class="pet-card">
-                <img [src]="frodoImage" alt="Foto do cão Frodo, de porte médio e adulto." class="pet-image">
-                <div class="pet-info">
-                    <h3 class="pet-name">Frodo</h3>
-                    <div class="pet-details">
-                        <div class="detail-item">
-                            <i class="fas fa-dog"></i>
-                            <span>CÃO - SRD</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>PORTE MÉDIO</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-mars"></i>
-                            <span>MACHO</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>ADULTO</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <div class="pet-card">
-            <img src="assets/foto_venus.jpg" alt="Foto da gata Vênus, filhote, preta e branca." class="pet-image">
-            <div class="pet-info">
-                <h3 class="pet-name">Vênus</h3>
-                <div class="pet-details">
-                    <div class="detail-item">
-                        <i class="fas fa-cat"></i>
-                        <span>GATO - SRD</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-ruler-combined"></i>
-                        <span>PORTE PEQUENO</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-venus"></i>
-                        <span>FÊMEA</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>FILHOTE</span>
-                    </div>
-                </div>
-            </div>
+        @for (pet of pets; track $index) {
+        <home-pet-card [pet]="pet" />
+        } @empty {
+        <p>Nenhum pet disponível.</p>
+        }
         </div>
-    </div>
 </section>
 
 <section class="footer">
