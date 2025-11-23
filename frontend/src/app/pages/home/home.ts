@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Breed, Gender, Pet, PetCard, Size, Species } from './pet-card/pet-card';
-import { petsObject } from 'src/assets/objects/pets-object';
+import { petsObject } from '@pages/models/tests/pets.object';
 import { Hero } from "./hero/hero";
 import { Header } from "@components/header/header";
-import { Footer } from "./footer/footer";
+import { PetCard } from './pet-card/pet-card';
+import { Footer } from "../../components/footer/footer";
+import { Breed, Gender, Pet, Size, Species } from '@pages/models/pets.model';
 
 @Component({
 	selector: 'page-home',
