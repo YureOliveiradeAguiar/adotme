@@ -47,4 +47,12 @@ export class Home {
       return matchesType && matchesSize && matchesGender;
     });
   }
+
+  clearFilters() {
+    this.filterType = '';
+    this.filterSize = '';
+    this.filterGender = '';
+    this.applyFilters();
+  }
+
 }
