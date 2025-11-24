@@ -1,0 +1,38 @@
+<div class="pet-card" (click)="goToDetails()">
+  <img [src]="photoUrl" [alt]="'Foto do ' + pet.name" class="pet-image" />
+
+  <div class="pet-content">
+    <h3 class="pet-name">{{ pet.name }}</h3>
+
+    <div class="tag-list">
+      <!-- Species + Breed -->
+      <div class="tag tag-species">
+        <i class="fas fa-dog"></i>
+        <span>{{ pet.type }} - {{ pet.breed }}</span>
+      </div>
+
+      <!-- Size -->
+      <div class="tag tag-size">
+        <i class="fas fa-ruler-combined"></i>
+        <span>{{ pet.size }}</span>
+      </div>
+
+      <!-- Gender -->
+      <div class="tag tag-gender-male" *ngIf="pet.gender === 'Macho'">
+        <i class="fas fa-mars"></i>
+        <span>Macho</span>
+      </div>
+
+      <div class="tag tag-gender-female" *ngIf="pet.gender === 'Femea'">
+        <i class="fas fa-venus"></i>
+        <span>Fêmea</span>
+      </div>
+
+      <!-- Age category -->
+      <div class="tag tag-age">
+        <i class="fas fa-calendar-alt"></i>
+        <span>{{ pet.ageCategory }}</span>
+      </div>
+    </div>
+  </div>
+</div>

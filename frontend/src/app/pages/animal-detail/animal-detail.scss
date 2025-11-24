@@ -1,0 +1,118 @@
+.animal-detail-container {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.animal-detail-card {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    width: 100%;
+    gap: 16px;
+}
+
+.animal-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    object-fit: cover;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.animal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.animal-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2b2b2b;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2c2c2c;
+
+    i {
+        font-size: 1rem;
+    }
+}
+
+/* Cores por tipo de tag */
+.tag-type {
+    background: #e6eef7;
+}
+
+.tag-size {
+    background: #ffe6c9;
+}
+
+.tag-gender-male {
+    background: #dbe7f7;
+}
+
+.tag-gender-female {
+    background: #ffd6e7;
+}
+
+.tag-age {
+    background: #ffeeda;
+}
+
+.tag-vaccinated {
+    background: #d1f5d3;
+}
+
+.tag-neutered {
+    background: #f5d1d1;
+}
+
+.animal-description {
+    margin-top: 16px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+
+    h3 {
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+    .animal-detail-card {
+        flex-direction: row;
+    }
+
+    .animal-photo,
+    .animal-info {
+        flex: 1;
+    }
+
+    .animal-photo img {
+        height: 100%;
+    }
+}
