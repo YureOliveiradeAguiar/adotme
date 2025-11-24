@@ -4,26 +4,47 @@ import { Hero } from "./hero/hero";
 import { Header } from "@components/header/header";
 import { Footer } from "@components/footer/footer";
 import { AnimalService } from '../../services/animal.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'page-home',
   templateUrl: './home.html',
-  styleUrl: './home.scss',
-  imports: [PetCard, Hero, Header, Footer]
+  styleUrls: ['./home.scss'],
+  standalone: true,
+  imports: [PetCard, Hero, Header, Footer, CommonModule, FormsModule],
 })
 export class Home {
   pets: Pet[] = [];
+  filteredPets: Pet[] = [];
 
-  constructor(private animalService: AnimalService) {}
+  filterType: string = '';
+  filterSize: string = '';
+  filterGender: string = '';
+  dropdownOpen: boolean = false;
+
+  constructor(private animalService: AnimalService) { }
 
   ngOnInit() {
     this.animalService.getAnimals().subscribe({
       next: (data: Pet[]) => {
-        this.pets = data; // agora é direto, sem map
+        this.pets = data;
+        this.filteredPets = [...this.pets];
       },
-      error: (err) => {
-        console.error('Erro ao carregar animais:', err);
-      }
+      error: (err) => console.error('Erro ao carregar animais:', err)
+    });
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  applyFilters() {
+    this.filteredPets = this.pets.filter(pet => {
+      const matchesType = !this.filterType || pet.type === this.filterType;
+      const matchesSize = !this.filterSize || pet.size === this.filterSize;
+      const matchesGender = !this.filterGender || pet.gender === this.filterGender;
+      return matchesType && matchesSize && matchesGender;
     });
   }
 }

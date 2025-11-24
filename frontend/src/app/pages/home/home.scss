@@ -1,25 +1,15 @@
+/* Container principal */
 .container {
   padding: 0 15px;
   max-width: 450px;
   margin: 0 auto;
+
+  @media (min-width: 1200px) {
+    max-width: 900px; // limite total do grid
+  }
 }
 
-.menu-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.menu-toggle .bar {
-  display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px 0;
-  background-color: white;
-  border-radius: 2px;
-}
-
+/* Nav de adoção */
 .adoption-nav {
   text-align: center;
   margin-top: -25px;
@@ -40,33 +30,16 @@
   font-size: 0.9rem;
   letter-spacing: 0.5px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
-.search-bar {
-  background-color: white;
-  border-radius: 25px;
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  border: 1px solid #ddd;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
+.adoption-button:hover {
+  background-color: #e68a00;
 }
 
-.search-bar i {
-  color: #999;
-  margin-right: 10px;
-  font-size: 1.1rem;
-}
-
-.search-bar input {
-  border: none;
-  outline: none;
-  flex-grow: 1;
-  font-size: 1rem;
-  padding: 2px 0;
-}
-
+/* Cabeçalho de resultados */
 .results-header {
   display: flex;
   justify-content: space-between;
@@ -80,17 +53,59 @@
   font-weight: 500;
 }
 
-.filter-sort-button {
-  background-color: white;
-  color: #0d2d46;
-  border: 1px solid #ccc;
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+/* Dropdown de filtros */
+.filter-dropdown {
+  position: relative;
+  display: inline-block;
+
+  .filter-sort-button {
+    background-color: white;
+    color: #0d2d46;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    i.fa-chevron-down,
+    i.fa-chevron-up {
+      margin-left: auto;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    z-index: 100;
+    min-width: 150px;
+
+    .dropdown-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 8px;
+
+      label {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        font-weight: 600;
+      }
+
+      select {
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 0.9rem;
+      }
+    }
+  }
 }
 
 .filter-sort-button i {
@@ -98,12 +113,36 @@
   font-size: 0.9rem;
 }
 
+/* Lista de pets */
 .pet-list {
   display: flex;
   flex-direction: column;
-  align-self: center;
   gap: 15px;
   padding-bottom: 20px;
   max-width: 450px;
+  margin: 0 auto;
+
+  @media (min-width: 1200px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 }
 
+/* Ajuste dropdown mobile */
+@media (max-width: 504px) {
+  .filter-dropdown {
+    .filter-sort-button {
+      justify-content: space-between;
+    }
+
+    .dropdown-menu {
+      left: 0 !important;
+      right: auto;
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+  }
+}

@@ -1,30 +1,64 @@
-<app-header /> <!--TODO-->
+<div class="app-container">
+    <app-header />
+    <main class="app-content">
+        <app-hero />
 
-<app-hero />
+        <nav class="adoption-nav">
+            <a class="adoption-button"
+                href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá!%20Quero%20adotar%20um%20pet."
+                target="_blank" rel="noopener">
+                ADOTE UM PET
+            </a>
+        </nav>
 
-<nav class="adoption-nav">
-    <button class="adoption-button">ADOTE UM PET</button>
-</nav>
-<div class="container">
-    <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Buscar">
-    </div>
+        <div class="container">
+            <!-- Filtros e contagem -->
+            <div class="results-header">
+                <p class="results-count">{{ filteredPets.length }} resultados</p>
+                <div class="filter-dropdown">
+                    <button class="filter-sort-button" (click)="toggleDropdown()">
+                        <i class="fas fa-sliders-h"></i>
+                        FILTRAR
+                        <i class="fas"
+                            [ngClass]="{'fa-chevron-down': !dropdownOpen, 'fa-chevron-up': dropdownOpen}"></i>
+                    </button>
+                    <div class="dropdown-menu" *ngIf="dropdownOpen">
+                        <div class="dropdown-item">
+                            <label>Tipo</label>
+                            <select [(ngModel)]="filterType" (change)="applyFilters()">
+                                <option value="">Todos</option>
+                                <option value="Cachorro">Cachorro</option>
+                                <option value="Gato">Gato</option>
+                            </select>
+                        </div>
+                        <div class="dropdown-item">
+                            <label>Porte</label>
+                            <select [(ngModel)]="filterSize" (change)="applyFilters()">
+                                <option value="">Todos</option>
+                                <option value="Pequeno">Pequeno</option>
+                                <option value="Médio">Médio</option>
+                                <option value="Grande">Grande</option>
+                            </select>
+                        </div>
+                        <div class="dropdown-item">
+                            <label>Gênero</label>
+                            <select [(ngModel)]="filterGender" (change)="applyFilters()">
+                                <option value="">Todos</option>
+                                <option value="Macho">Macho</option>
+                                <option value="Femea">Fêmea</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div class="results-header">
-        <p class="results-count">20 resultados</p>
-        <button class="filter-sort-button">
-            <i class="fas fa-sliders-h"></i>
-            FILTRAR E ORDENAR
-        </button>
-    </div>
-    <div class="pet-list">
-        @for (pet of pets; track $index) {
-        <home-pet-card [pet]="pet" />
-        } @empty {
-        <p>Nenhum pet disponível.</p>
-        }
-    </div>
+            <!-- Lista de pets -->
+            <div class="pet-list">
+                <home-pet-card *ngFor="let pet of filteredPets" [pet]="pet"></home-pet-card>
+
+                <p *ngIf="filteredPets.length === 0">Nenhum pet disponível.</p>
+            </div>
+        </div>
+    </main>
+    <app-footer />
 </div>
-
-<app-footer />
