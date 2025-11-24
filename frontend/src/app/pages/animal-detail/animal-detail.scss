@@ -3,35 +3,51 @@
     display: flex;
     justify-content: center;
 }
+.mobile-only{
+    align-self: center;
+}
 
 .animal-detail-card {
     display: flex;
     flex-direction: column;
-    max-width: 900px;
     width: 100%;
+    max-width: 800px;
     gap: 16px;
 }
 
 .animal-photo img {
     width: 100%;
     height: auto;
-    border-radius: 14px;
+    border-radius: 0;
+    /* mobile: sem borda */
     object-fit: cover;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
-.animal-info {
+.animal-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
+    flex: 1;
 }
 
+/* Nome do pet */
 .animal-name {
     font-size: 1.8rem;
     font-weight: 700;
     color: #2b2b2b;
 }
 
+/* Mobile / Desktop visibility */
+.mobile-only {
+    display: block;
+}
+
+.desktop-only {
+    display: none;
+}
+
+/* Tags */
 .tag-list {
     display: flex;
     flex-wrap: wrap;
@@ -53,7 +69,6 @@
     }
 }
 
-/* Cores por tipo de tag */
 .tag-type {
     background: #e6eef7;
 }
@@ -82,12 +97,20 @@
     background: #f5d1d1;
 }
 
+/* Cards */
+.animal-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+}
+
 .animal-description {
-    margin-top: 16px;
     padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 0;
     background: #fafafa;
+    border: solid 1px #ddd;
+    flex: 1;
 
     h3 {
         margin-bottom: 8px;
@@ -97,22 +120,68 @@
 
     p {
         font-size: 1rem;
-        line-height: 1.4;
+        line-height: 1.5;
+
+        a {
+            color: #d85a1e; 
+            font-weight: 600;
+            text-decoration: underline;
+        }
     }
 }
 
-/* Desktop layout */
-@media (min-width: 768px) {
+.description-card {
+    background: #f9f9f9;
+}
+
+.adoption-card {
+    background: #fef6f0;
+    border-color: #f7c59f;
+}
+
+
+@media (min-width: 700px) {
+
+    /* Nome desktop */
+    .mobile-only {
+        display: none;
+    }
+
+    .desktop-only {
+        display: block;
+    }
+
     .animal-detail-card {
         flex-direction: row;
+        gap: 24px;
     }
 
     .animal-photo,
-    .animal-info {
+    .animal-content {
         flex: 1;
     }
 
     .animal-photo img {
         height: 100%;
+        border-radius: 14px;
+        /* desktop: borda arredondada */
+    }
+
+    .animal-name {
+        margin-bottom: 16px;
+    }
+
+    .animal-cards {
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .description-card,
+    .adoption-card {
+        flex: 1;
+        min-width: 0;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        padding: 16px;
     }
 }

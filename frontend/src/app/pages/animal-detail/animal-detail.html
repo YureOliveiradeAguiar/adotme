@@ -3,62 +3,71 @@
     <main class="app-content">
         <section class="animal-detail-container">
             <div class="animal-detail-card">
+
+                <!-- Nome para Mobile (antes da imagem) -->
+                <h2 class="animal-name mobile-only">{{ pet.name }}</h2>
+
                 <!-- Foto do animal -->
                 <div class="animal-photo">
                     <img [src]="photoUrl" [alt]="'Foto do ' + pet.name" />
                 </div>
 
-                <!-- Informações do animal -->
-                <div class="animal-info">
-                    <h2 class="animal-name">{{ pet.name }}</h2>
+                <!-- Conteúdo à direita da foto (desktop) -->
+                <div class="animal-content">
 
-                    <div class="tag-list">
-                        <!-- Tipo + Raça -->
-                        <div class="tag tag-type">
-                            <i class="fas fa-dog"></i>
-                            <span>{{ pet.type }} - {{ pet.breed }}</span>
-                        </div>
+                    <!-- Nome para Desktop (à direita da foto) -->
+                    <h2 class="animal-name desktop-only">{{ pet.name }}</h2>
 
-                        <!-- Tamanho -->
-                        <div class="tag tag-size">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>{{ pet.size }}</span>
-                        </div>
-
-                        <!-- Gênero -->
-                        <div class="tag tag-gender-male" *ngIf="pet.gender === 'Macho'">
-                            <i class="fas fa-mars"></i>
-                            <span>Macho</span>
-                        </div>
-                        <div class="tag tag-gender-female" *ngIf="pet.gender === 'Femea'">
-                            <i class="fas fa-venus"></i>
-                            <span>Fêmea</span>
-                        </div>
-
-                        <!-- Idade -->
-                        <div class="tag tag-age">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>{{ pet.ageCategory }}</span>
-                        </div>
-
-                        <!-- Vacinação -->
-                        <div class="tag tag-vaccinated" *ngIf="pet.vaccinated">
-                            <i class="fas fa-syringe"></i>
-                            <span>Vacinado</span>
-                        </div>
-
-                        <!-- Castrado -->
-                        <div class="tag tag-neutered" *ngIf="pet.neutered">
-                            <i class="fas fa-cut"></i>
-                            <span>Castrado</span>
+                    <!-- Tags / detalhes do animal -->
+                    <div class="animal-info">
+                        <div class="tag-list">
+                            <div class="tag tag-type">
+                                <i class="fas fa-dog"></i>
+                                <span>{{ pet.type }} - {{ pet.breed }}</span>
+                            </div>
+                            <div class="tag tag-size">
+                                <i class="fas fa-ruler-combined"></i>
+                                <span>{{ pet.size }}</span>
+                            </div>
+                            <div class="tag tag-gender-male" *ngIf="pet.gender === 'Macho'">
+                                <i class="fas fa-mars"></i>
+                                <span>Macho</span>
+                            </div>
+                            <div class="tag tag-gender-female" *ngIf="pet.gender === 'Femea'">
+                                <i class="fas fa-venus"></i>
+                                <span>Fêmea</span>
+                            </div>
+                            <div class="tag tag-age">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>{{ pet.ageCategory }}</span>
+                            </div>
+                            <div class="tag tag-vaccinated" *ngIf="pet.vaccinated">
+                                <i class="fas fa-syringe"></i>
+                                <span>Vacinado</span>
+                            </div>
+                            <div class="tag tag-neutered" *ngIf="pet.neutered">
+                                <i class="fas fa-cut"></i>
+                                <span>Castrado</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Descrição -->
-                    <div class="animal-description" *ngIf="pet.description">
-                        <h3>Descrição</h3>
-                        <p>{{ pet.description }}</p>
+                    <!-- Cards -->
+                    <div class="animal-cards">
+                        <div class="animal-description description-card" *ngIf="pet.description">
+                            <h3>Descrição</h3>
+                            <p>{{ pet.description }}</p>
+                        </div>
+                        <div class="animal-description adoption-card" *ngIf="pet.description">
+                            <h3>Como adotar {{ pet.name }}?</h3>
+                            <p>
+                                Adote {{ pet.name }} no evento em 29/11/2025, das 07:00 às 12:00, na R. Olávo Bilac, 620
+                                - Canaã, ou <a href="https://wa.me/5531999999999"
+                                    target="_blank">entre em contato</a>.
+                            </p>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>

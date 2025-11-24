@@ -12,10 +12,13 @@
   margin: 0 auto;
 }
 
-.logo{
+.logo a {
   display: flex;
   align-items: center;
   gap: 5px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer; 
 }
 
 @media (min-width: 1300px) {
