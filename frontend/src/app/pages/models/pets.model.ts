@@ -1,14 +1,12 @@
 export enum Species {
 	Dog = 'DOG',
 	Cat = 'CAT',
-	Bird = 'BIRD',
-	Other = 'OTHER'
 }
 export enum Breed {
 	Labrador = 'LABRADOR',
 	Poodle = 'POODLE',
 	Persian = 'PERSIAN',
-	Mixed = 'MIXED'
+	CDR = 'CDR'
 }
 export enum Size {
 	Small = 'SMALL',
@@ -20,10 +18,11 @@ export enum Gender {
 	Female = 'FEMALE'
 }
 export interface Pet {
-	name: string;
-	species: Species;
-	breed: Breed;
-	age: number;
-	size: Size;
-	gender: Gender;
+	id: string,
+	name: string,
+	species: Species,
+	breed: Breed,
+	age: number,
+	size: Size,
+	gender: Gender
 }

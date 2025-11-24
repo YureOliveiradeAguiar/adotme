@@ -5,33 +5,12 @@
     <h3 class="pet-name">{{ pet.name }}</h3>
 
     <div class="tag-list">
-      <!-- Species + Breed -->
-      <div class="tag tag-species">
-        <i class="fas fa-dog"></i>
-        <span>{{ pet.species }} - {{ pet.breed }}</span>
-      </div>
-
-      <!-- Size -->
-      <div class="tag tag-size">
-        <i class="fas fa-ruler-combined"></i>
-        <span>{{ pet.size }}</span>
-      </div>
-
-      <!-- Gender -->
-      <div class="tag tag-gender-male" *ngIf="pet.gender === 'MALE'">
-        <i class="fas fa-mars"></i>
-        <span>Macho</span>
-      </div>
-      <div class="tag tag-gender-female" *ngIf="pet.gender === 'FEMALE'">
-        <i class="fas fa-venus"></i>
-        <span>Fêmea</span>
-      </div>
-
-      <!-- Age category -->
-      <div class="tag tag-age">
-        <i class="fas fa-calendar-alt"></i>
-        <span>Adulto</span>
-      </div>
+      @for (tag of petTags; track tag.id){
+        <div class="pet-tag" [style.--tag-color]="tag.color">
+          <app-icon-dog />
+          <span>{{tag.value}}</span>
+        </div>
+      }
     </div>
   </div>
 </div>

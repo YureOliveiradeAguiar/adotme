@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { petsObject } from '@pages/models/tests/pets.object';
+import { petsObject } from '@pages/models/tests-objects/pets.object';
 import { Hero } from "./hero/hero";
 import { Header } from "@components/header/header";
 import { PetCard } from './pet-card/pet-card';
@@ -20,6 +20,8 @@ export class Home {
 		size: p.size as Size,
 		gender: p.gender as Gender
 	}));
+
+	
 
 	//constructor(private animalService: AnimalService) { }
 	//ngOnInit() {
