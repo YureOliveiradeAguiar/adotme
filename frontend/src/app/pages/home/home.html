@@ -2,24 +2,18 @@
 
 <app-hero />
 
-<nav class="adoption-nav">
-	<button class="adoption-button">ADOTE UM PET</button>
-</nav>
-
-<div class="container">
-	<div class="search-bar">
-		<input type="text" placeholder="Buscar">
+<section class="pets-section">
+	<div class="adoption-button-container">
+		<button class="adoption-button">ADOTE UM PET</button>
 	</div>
 
-	<div class="results-header">
+	<div class="list-helper">
 		<div class="results-count">
 			<span class="results-number">{{pets.length}}</span>
 			<span class="results-text"> resultados</span>
 		</div>
-
-		<button class="filter-sort-button">
-			<i class="fas fa-sliders-h"></i>
-			FILTRAR E ORDENAR
+		<button class="filter-button">
+			<span>FILTRAR E ORDENAR</span>
 		</button>
 	</div>
 	<div class="pet-list">
@@ -29,6 +23,6 @@
 		<p>Nenhum pet disponível.</p>
 		}
 	</div>
-</div>
+</section>
 
 <app-footer />

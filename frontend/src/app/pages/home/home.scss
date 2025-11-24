@@ -1,92 +1,51 @@
-//=============Results==============
-.results-number {
-  font-weight: bold;
+//================Adoption Button===============
+.adoption-button-container {
+  display: flex;
+  justify-content: center;
+  transform: translateY(-50%);
 }
-
-//==============TODO================
-.container {
-  padding: 0 15px;
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-.menu-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.menu-toggle .bar {
-  display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px 0;
-  background-color: white;
-  border-radius: 2px;
-}
-
-.adoption-nav {
-  text-align: center;
-  margin-top: -25px;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 10;
-}
-
 .adoption-button {
+  display: inline-flex;
   background-color: #ff9900;
   color: white;
+  cursor: pointer;
   font-weight: 700;
   border: none;
-  padding: 10px 30px;
-  border-radius: 25px;
-  text-transform: uppercase;
+  padding: 10px 40px;
+  border-radius: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-size: 0.9rem;
   letter-spacing: 0.5px;
-  cursor: pointer;
 }
 
-.search-bar {
-  background-color: white;
-  border-radius: 25px;
-  padding: 10px 15px;
+//=================Pets Section===================
+.pets-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+//-----------------List Helper---------------------
+.list-helper {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
-}
-
-.search-bar i {
-  color: #999;
-  margin-right: 10px;
-  font-size: 1.1rem;
-}
-
-.search-bar input {
-  border: none;
-  outline: none;
-  flex-grow: 1;
-  font-size: 1rem;
-  padding: 2px 0;
-}
-
-.results-header {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 10px 20px 10px;
 }
-
 .results-count {
   color: #666;
   font-size: 0.9rem;
   font-weight: 500;
 }
-
-.filter-sort-button {
+.results-number {
+  font-weight: bold;
+}
+.filter-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
   background-color: white;
   color: #0d2d46;
   border: 1px solid #ccc;
@@ -94,21 +53,13 @@
   border-radius: 20px;
   font-weight: 500;
   font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
 }
 
-.filter-sort-button i {
-  margin-right: 5px;
-  font-size: 0.9rem;
-}
-
+//------------------Pet List-------------------
 .pet-list {
   display: flex;
   flex-direction: column;
   align-self: center;
   gap: 15px;
-  padding-bottom: 20px;
   max-width: 450px;
 }
