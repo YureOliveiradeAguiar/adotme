@@ -25,7 +25,7 @@ export interface Animal {
   standalone: true,
   imports: [CommonModule, Header, Footer],
 })
-export class AnimalDetail implements OnInit {
+export class PetDetail implements OnInit {
   pet!: Animal;
   photoUrl = '';
 
