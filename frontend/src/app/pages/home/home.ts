@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { petsObject } from '@pages/models/tests-objects/pets.object';
+import { petsObject } from '@pages/models/tests/pets.object';
 import { Hero } from "./hero/hero";
 import { Header } from "@components/page-base/header/header";
 import { PetCard } from './pet-card/pet-card';
