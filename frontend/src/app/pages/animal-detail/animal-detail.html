@@ -1,0 +1,76 @@
+<div class="app-container">
+  <app-header></app-header>
+  <main class="app-content">
+    <section class="animal-detail-container">
+      <div class="animal-detail-card">
+
+        <h2 class="animal-name mobile-only">{{ pet.name }}</h2>
+
+        <div class="animal-photo">
+          <img [src]="photoUrl" [alt]="'Foto do ' + pet.name" />
+        </div>
+
+        <div class="animal-content">
+          <h2 class="animal-name desktop-only">{{ pet.name }}</h2>
+
+          <div class="animal-info">
+            <div class="tag-list">
+              <div class="tag tag-type">
+                <i class="fas fa-dog"></i>
+                <span>{{ pet.species }} - {{ pet.breed }}</span>
+              </div>
+
+              <div class="tag tag-size">
+                <i class="fas fa-ruler-combined"></i>
+                <span>{{ pet.size }}</span>
+              </div>
+
+              <div class="tag tag-gender-male" *ngIf="pet.gender === 'Macho'">
+                <i class="fas fa-mars"></i>
+                <span>Macho</span>
+              </div>
+
+              <div class="tag tag-gender-female" *ngIf="pet.gender === 'Fêmea'">
+                <i class="fas fa-venus"></i>
+                <span>Fêmea</span>
+              </div>
+
+              <div class="tag tag-age">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ pet.ageCategory }}</span>
+              </div>
+
+              <div class="tag tag-vaccinated" *ngIf="pet.vaccinated">
+                <i class="fas fa-syringe"></i>
+                <span>Vacinado</span>
+              </div>
+
+              <div class="tag tag-neutered" *ngIf="pet.neutered">
+                <i class="fas fa-cut"></i>
+                <span>Castrado</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="animal-cards">
+            <div class="animal-description description-card" *ngIf="pet.description">
+              <h3>Descrição</h3>
+              <p>{{ pet.description }}</p>
+            </div>
+
+            <div class="animal-description adoption-card">
+              <h3>Como adotar {{ pet.name }}?</h3>
+              <p>
+                Adote {{ pet.name }} no evento em 29/11/2025, das 07:00 às 12:00,
+                na R. Olávo Bilac, 620 - Canaã,
+                ou <a href="https://wa.me/5531999999999" target="_blank">entre em contato</a>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <app-footer></app-footer>
+</div>

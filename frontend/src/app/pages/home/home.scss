@@ -1,0 +1,156 @@
+/* Container principal */
+.container {
+  padding: 0 15px;
+  max-width: 450px;
+  margin: 0 auto;
+
+  @media (min-width: 1200px) {
+    max-width: 900px; 
+  }
+}
+
+/* Nav de adoção */
+.adoption-nav {
+  text-align: center;
+  margin-top: -25px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.adoption-button {
+  background-color: #ff9900;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.adoption-button:hover {
+  background-color: #e68a00;
+}
+
+/* Cabeçalho de resultados */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.results-count {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Dropdown de filtros */
+.filter-dropdown {
+  position: relative;
+  display: inline-block;
+
+  .filter-sort-button {
+    background-color: white;
+    color: #0d2d46;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    i.fa-chevron-down,
+    i.fa-chevron-up {
+      margin-left: auto;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    z-index: 100;
+    min-width: 150px;
+
+    .dropdown-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 8px;
+
+      label {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        font-weight: 600;
+      }
+
+      select {
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+.filter-sort-button i {
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+.clear-filters-button {
+  background: transparent;
+  border: none;
+  color: #ff4d4d;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+/* Lista de pets */
+.pet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 20px;
+  max-width: 450px;
+  margin: 0 auto;
+
+  @media (min-width: 1200px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+/* Ajuste dropdown mobile */
+@media (max-width: 504px) {
+  .filter-dropdown {
+    .filter-sort-button {
+      justify-content: space-between;
+    }
+
+    .dropdown-menu {
+      left: 0 !important;
+      right: auto;
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+  }
+}
