@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Pet } from '@pages/models/pets.model';
-import { IconDog } from "src/assets/icons/icon-dog";
+import { Pet } from '@models/pets.model';
+import { IconDog } from 'src/assets/icons/icon-dog';
 
 export interface PetTag {
   id: string;

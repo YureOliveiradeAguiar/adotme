@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { petsObject } from '@pages/models/tests/pets.object';
-import { Hero } from "./hero/hero";
-import { Header } from "@components/page-base/header/header";
+import { Footer } from '@components/page-base/footer/footer';
+import { Header } from '@components/page-base/header/header';
+import { Breed, Gender, Pet, Size, Species } from '@models/pets.model';
+import { petsObject } from '@models/tests/pets.object';
+import { Hero } from './hero/hero';
 import { PetCard } from './pet-card/pet-card';
-import { Footer } from "../../components/page-base/footer/footer";
-import { Breed, Gender, Pet, Size, Species } from '@pages/models/pets.model';
 
 @Component({
 	selector: 'page-home',
