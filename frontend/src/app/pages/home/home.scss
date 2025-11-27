@@ -4,6 +4,7 @@
   justify-content: center;
   transform: translateY(-50%);
 }
+
 .adoption-button {
   display: inline-flex;
   background-color: #ff9900;
@@ -31,17 +32,20 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 400px;
-  margin: 10px 10px 20px 10px;
+  max-width: 28rem;
+  padding: 1rem 1.5rem;
 }
+
 .results-count {
   color: #666;
   font-size: 0.9rem;
   font-weight: 500;
 }
+
 .results-number {
   font-weight: bold;
 }
+
 .filter-button {
   display: flex;
   align-items: center;
@@ -59,7 +63,7 @@
 .pet-list {
   display: flex;
   flex-direction: column;
-  align-self: center;
+  justify-content: center;
   gap: 15px;
-  max-width: 450px;
+  margin: 0 0.5rem;
 }
