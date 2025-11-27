@@ -16,7 +16,7 @@
           <div class="animal-info">
             <div class="tag-list">
               <div class="tag tag-type">
-                <i class="fas fa-dog"></i>
+                <i class="fas" [ngClass]="pet.species === 'Cachorro' ? 'fa-dog' : 'fa-cat'"></i>
                 <span>{{ pet.species }} - {{ pet.breed }}</span>
               </div>
 

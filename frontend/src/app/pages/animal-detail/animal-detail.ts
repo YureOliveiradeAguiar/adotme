@@ -1,22 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AnimalService } from '@services/animal.service';
+import { AnimalService, Pet } from '@services/animal.service';
 import { Header } from '@components/header/header';
 import { Footer } from '@components/footer/footer';
-
-export interface Animal {
-  id: string;
-  name: string;
-  species: string;
-  breed: string;
-  ageCategory: string;
-  size: string;
-  gender: string;
-  vaccinated: boolean;
-  neutered: boolean;
-  description?: string;
-}
 
 @Component({
   selector: 'page-animal-detail',
@@ -26,33 +13,36 @@ export interface Animal {
   imports: [CommonModule, Header, Footer],
 })
 export class AnimalDetail implements OnInit {
-  pet?: Animal;
+  pet?: Pet;
   photoUrl = '';
 
   constructor(
     private route: ActivatedRoute,
     private animalService: AnimalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.animalService.getAnimals().subscribe((animals) => {
-      const raw = animals.find(a => a.id === id);
-      if (raw) {
-        this.pet = {
-          ...raw,
-          species: this.translateSpecies(raw.species),
-          gender: this.translateGender(raw.gender),
-          size: this.translateSize(raw.size),
-          ageCategory: this.translateAge(raw.ageCategory),
-          vaccinated: !!raw.vaccinated,
-          neutered: !!raw.neutered,
-        };
+    if (id) {
+      this.animalService.getAnimalById(id).subscribe({
+        next: (pet) => {
+          this.pet = {
+            ...pet,
+            species: this.translateSpecies(pet.species),
+            gender: this.translateGender(pet.gender),
+            size: this.translateSize(pet.size),
+            ageCategory: this.translateAge(pet.ageCategory),
+          };
 
-        this.photoUrl = 'https://placedog.net/500/300?random=' + Math.random();
-      }
-    });
+          // Usa a primeira imagem do pet
+          this.photoUrl = this.animalService.getFirstImageUrl(pet);
+        },
+        error: (err) => {
+          console.error('Erro ao carregar animal:', err);
+        }
+      });
+    }
   }
 
   translateSpecies(v: string) {

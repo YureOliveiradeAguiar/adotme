@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { AnimalService } from '@services/animal.service';
 
 export interface Pet {
   id: string;
@@ -10,6 +11,10 @@ export interface Pet {
   ageCategory: string;
   size: string;
   gender: string;
+  vaccinated: boolean;
+  neutered: boolean;
+  description?: string;
+  images?: string[];
 }
 
 @Component({
@@ -19,12 +24,24 @@ export interface Pet {
   standalone: true,
   imports: [CommonModule, RouterModule],
 })
-export class PetCard {
+export class PetCard implements OnInit {
   @Input() pet!: Pet;
 
-  photoUrl = 'https://placedog.net/500/300?random=' + Math.random();
+  photoUrl = '';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private animalService: AnimalService
+  ) { }
+
+  ngOnInit() {
+    // Usa a primeira imagem do pet, ou fallback
+    if (this.pet.images && this.pet.images.length > 0) {
+      this.photoUrl = this.animalService.getImageUrl(this.pet.images[0]);
+    } else {
+      this.photoUrl = 'https://placedog.net/500/300?random=' + Math.random();
+    }
+  }
 
   goToDetails() {
     this.router.navigate(['/animals', this.pet.id]);

@@ -3,22 +3,9 @@ import { PetCard } from './pet-card/pet-card';
 import { Hero } from "./hero/hero";
 import { Header } from "@components/header/header";
 import { Footer } from "@components/footer/footer";
-import { AnimalService } from '../../services/animal.service';
+import { AnimalService, Pet } from '../../services/animal.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-export interface Pet {
-  id: string;
-  name: string;
-  species: string;
-  breed: string;
-  ageCategory: string;
-  size: string;
-  gender: string;
-  vaccinated: boolean;
-  neutered: boolean;
-  description?: string;
-}
 
 @Component({
   selector: 'page-home',
@@ -36,11 +23,11 @@ export class Home {
   filterGender = '';
   dropdownOpen = false;
 
-  constructor(private animalService: AnimalService) {}
+  constructor(private animalService: AnimalService) { }
 
   ngOnInit() {
     this.animalService.getAnimals().subscribe({
-      next: (data: any[]) => {
+      next: (data: Pet[]) => {
         this.pets = data.map(p => ({
           ...p,
           species: this.translateSpecies(p.species),
@@ -51,7 +38,7 @@ export class Home {
 
         this.filteredPets = [...this.pets];
       },
-      error: err => console.error('Erro ao carregar animais:', err)
+      error: (err: any) => console.error('Erro ao carregar animais:', err)
     });
   }
 

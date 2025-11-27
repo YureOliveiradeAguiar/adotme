@@ -6,6 +6,13 @@
   transition: all 0.2s ease;
   cursor: pointer;
 
+  // TAMANHO PADRÃO FIXO
+  width: 100%;
+  max-width: 400px;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.16);
@@ -14,11 +21,16 @@
 
 .pet-image {
   width: 100%;
+  height: 250px; // ALTURA FIXA PARA TODAS AS IMAGENS
   object-fit: cover;
+  display: block;
 }
 
 .pet-content {
   padding: 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .pet-name {
@@ -26,12 +38,15 @@
   font-weight: 700;
   margin-bottom: 12px;
   color: #2b2b2b;
+  min-height: 1.4em;
 }
 
 .tag-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 10px;
+  flex: 1;
 }
 
 .tag {
@@ -76,7 +91,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 0 10px 0;
+  padding: 10px 0 0 0;
+  margin-top: auto;
 
   span {
     position: relative;
@@ -91,7 +107,7 @@
       bottom: -3px;
       width: 100%;
       height: 2px;
-      background-color: #ffdd59 ; 
+      background-color: #ffdd59;
       transform: scaleX(0);
       transform-origin: right;
       transition: transform 0.3s ease;
@@ -108,5 +124,22 @@
 @media (max-width: 480px) {
   .pet-card {
     max-width: 100%;
+    min-height: 420px;
+  }
+
+  .pet-image {
+    height: 220px;
+  }
+}
+
+/* Desktop - 2 colunas */
+@media (min-width: 1200px) {
+  .pet-card {
+    max-width: 100%;
+    min-height: 460px;
+  }
+
+  .pet-image {
+    height: 260px;
   }
 }
