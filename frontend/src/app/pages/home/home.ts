@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Footer } from '@components/page-base/footer/footer';
-import { Header } from '@components/page-base/header/header';
 import { Breed, Gender, Pet, Size, Species } from '@models/pets.model';
 import { petsObject } from '@models/tests/pets.object';
 import { Hero } from './hero/hero';
@@ -10,7 +8,7 @@ import { PetCard } from './pet-card/pet-card';
 	selector: 'page-home',
 	templateUrl: './home.html',
 	styleUrl: './home.scss',
-	imports: [PetCard, Hero, Header, Footer]
+	imports: [PetCard, Hero]
 })
 export class Home {
 	pets: Pet[] = petsObject.map(p => ({
