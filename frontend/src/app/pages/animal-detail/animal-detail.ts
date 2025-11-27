@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AnimalService } from '../../services/animal.service';
+import { AnimalService } from '@services/animal.service';
 import { Header } from '@components/header/header';
 import { Footer } from '@components/footer/footer';
 
@@ -26,7 +26,7 @@ export interface Animal {
   imports: [CommonModule, Header, Footer],
 })
 export class AnimalDetail implements OnInit {
-  pet!: Animal;
+  pet?: Animal;
   photoUrl = '';
 
   constructor(
@@ -39,7 +39,6 @@ export class AnimalDetail implements OnInit {
 
     this.animalService.getAnimals().subscribe((animals) => {
       const raw = animals.find(a => a.id === id);
-
       if (raw) {
         this.pet = {
           ...raw,
@@ -47,6 +46,8 @@ export class AnimalDetail implements OnInit {
           gender: this.translateGender(raw.gender),
           size: this.translateSize(raw.size),
           ageCategory: this.translateAge(raw.ageCategory),
+          vaccinated: !!raw.vaccinated,
+          neutered: !!raw.neutered,
         };
 
         this.photoUrl = 'https://placedog.net/500/300?random=' + Math.random();

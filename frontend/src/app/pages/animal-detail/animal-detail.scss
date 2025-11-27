@@ -10,10 +10,6 @@ main {
     justify-content: center;
 }
 
-.mobile-only {
-    align-self: center;
-}
-
 .animal-detail-card {
     display: flex;
     flex-direction: column;
@@ -25,9 +21,8 @@ main {
 .animal-photo img {
     width: 100%;
     height: auto;
-    border-radius: 0;
-    /* mobile: sem borda */
     object-fit: cover;
+    border-radius: 0;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
@@ -38,14 +33,12 @@ main {
     flex: 1;
 }
 
-/* Nome do pet */
 .animal-name {
     font-size: 1.8rem;
     font-weight: 700;
     color: #2b2b2b;
 }
 
-/* Mobile / Desktop visibility */
 .mobile-only {
     display: block;
 }
@@ -54,7 +47,6 @@ main {
     display: none;
 }
 
-/* Tags */
 .tag-list {
     display: flex;
     flex-wrap: wrap;
@@ -76,6 +68,7 @@ main {
     }
 }
 
+/* Cores dos tags */
 .tag-type {
     background: #e6eef7;
 }
@@ -104,6 +97,14 @@ main {
     background: #f5d1d1;
 }
 
+/* Inativo (false) */
+.tag.inactive {
+    opacity: 0.4;
+    background-color: #eee;
+    color: #888;
+    pointer-events: none;
+}
+
 /* Cards */
 .animal-cards {
     display: flex;
@@ -115,7 +116,7 @@ main {
     padding: 12px;
     border-radius: 0;
     background: #fafafa;
-    border: solid 1px #ddd;
+    border: 1px solid #ddd;
     flex: 1;
 
     h3 {
@@ -146,8 +147,6 @@ main {
 }
 
 @media (min-width: 700px) {
-
-    /* Nome desktop */
     .mobile-only {
         display: none;
     }
@@ -167,9 +166,8 @@ main {
     }
 
     .animal-photo img {
-        height: 100%;
         border-radius: 14px;
-        /* desktop: borda arredondada */
+        height: 100%;
     }
 
     .animal-name {

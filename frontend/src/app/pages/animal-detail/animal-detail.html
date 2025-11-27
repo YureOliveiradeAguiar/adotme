@@ -1,4 +1,4 @@
-<div class="app-container">
+<div class="app-container" *ngIf="pet">
   <app-header></app-header>
   <main class="app-content">
     <section class="animal-detail-container">
@@ -40,14 +40,15 @@
                 <span>{{ pet.ageCategory }}</span>
               </div>
 
-              <div class="tag tag-vaccinated" *ngIf="pet.vaccinated">
+              <!-- Sempre renderiza, texto muda conforme boolean -->
+              <div class="tag tag-vaccinated" [ngClass]="pet.vaccinated ? 'active' : 'inactive'">
                 <i class="fas fa-syringe"></i>
-                <span>Vacinado</span>
+                <span>{{ pet.vaccinated ? 'Vacinado' : 'Não vacinado' }}</span>
               </div>
 
-              <div class="tag tag-neutered" *ngIf="pet.neutered">
+              <div class="tag tag-neutered" [ngClass]="pet.neutered ? 'active' : 'inactive'">
                 <i class="fas fa-cut"></i>
-                <span>Castrado</span>
+                <span>{{ pet.neutered ? 'Castrado' : 'Não castrado' }}</span>
               </div>
             </div>
           </div>

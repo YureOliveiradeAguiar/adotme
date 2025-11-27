@@ -1,28 +1,124 @@
 .header {
   background-color: #0d2d46;
   color: white;
-  padding: 15px 15px;
+  padding: 12px 20px;
+  position: relative;
+  z-index: 1000;
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 450px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .logo a {
   display: flex;
   align-items: center;
-  gap: 5px;
   color: inherit;
   text-decoration: none;
-  cursor: pointer; 
+  transition: transform 0.2s;
+
+  img {
+    max-width: 65px;
+    display: block;
+  }
+
+  h1 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 2.7rem;
+    margin-left: 8px;
+    margin-bottom: 7px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
-@media (min-width: 1300px) {
-  .header-content {
-    max-width: 900px;
+/* Desktop menu */
+.desktop-menu {
+  display: none;
+  gap: 20px;
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 6px;
+    position: relative;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 100%;
+      height: 2px;
+      background-color: #ee6205;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+/* Mobile toggle */
+.mobile-menu-toggle {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+  transition: color 0.2s;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  position: absolute;
+  top: 60px;
+  right: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  min-width: 180px;
+  margin-top: 5px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+
+  a {
+    color: #0d2d46;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}
+
+/* Desktop view */
+@media (min-width: 700px) {
+  .desktop-menu {
+    display: flex;
+  }
+
+  .mobile-menu-toggle,
+  .mobile-menu {
+    display: none;
   }
 }

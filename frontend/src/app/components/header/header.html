@@ -2,9 +2,25 @@
   <div class="header-content">
     <div class="logo">
       <a routerLink="/">
-        <i class="fas fa-paw"></i>
-        <h1>Adotme</h1>
+        <img src="../../../assets/logo/logo-no-bg.png" alt="Adotme logo">
+        <h1>adotme</h1>
       </a>
     </div>
+
+    <!-- Desktop -->
+    <nav class="desktop-menu">
+      <a routerLink="/">Home</a>
+      <a routerLink="/adocao-responsavel">Adoção Responsável</a>
+    </nav>
+
+    <!-- Mobile -->
+    <div class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="mobile-menu" *ngIf="mobileMenuOpen">
+      <a routerLink="/" (click)="toggleMobileMenu()">Home</a>
+      <a routerLink="/adocao-responsavel" (click)="toggleMobileMenu()">Adoção Responsável</a>
+    </nav>
   </div>
 </section>
