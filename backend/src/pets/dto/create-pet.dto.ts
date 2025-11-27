@@ -1,4 +1,4 @@
-import { IsEnum, IsString, IsUUID, MaxLength, IsBoolean, IsOptional } from 'class-validator';
+import { IsEnum, IsString, IsUUID, MaxLength, IsBoolean, IsOptional, IsArray } from 'class-validator';
 import { Species, Size, Gender, AgeCategory } from '../enums/pet.enums';
 
 export class CreatePetDto {
@@ -31,4 +31,9 @@ export class CreatePetDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  images?: string[];
 }

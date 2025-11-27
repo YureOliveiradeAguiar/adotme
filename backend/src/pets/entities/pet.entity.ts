@@ -13,7 +13,7 @@ export class Pet {
 	species: Species;
 
 	@Column()
-	breed: string; // string AGORA
+	breed: string;
 
 	@Column({ type: 'text', enum: AgeCategory })
 	ageCategory: AgeCategory;
@@ -32,4 +32,10 @@ export class Pet {
 
 	@Column({ nullable: true })
 	description: string;
+
+	@Column('simple-array', { nullable: true })
+	images?: string[];
+
+	@Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+	createdAt: Date;
 }
