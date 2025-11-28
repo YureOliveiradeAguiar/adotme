@@ -3,9 +3,10 @@ import { PetCard } from './pet-card/pet-card';
 import { Hero } from "./hero/hero";
 import { Header } from "@components/header/header";
 import { Footer } from "@components/footer/footer";
-import { AnimalService, Pet } from '../../services/animal.service';
+import { AnimalService, Pet } from '@services/animal.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { translator } from '@utils/translators';
 
 @Component({
   selector: 'page-home',
@@ -30,32 +31,16 @@ export class Home {
       next: (data: Pet[]) => {
         this.pets = data.map(p => ({
           ...p,
-          species: this.translateSpecies(p.species),
-          gender: this.translateGender(p.gender),
-          size: this.translateSize(p.size),
-          ageCategory: this.translateAge(p.ageCategory)
+          species: translator.species(p.species),
+          gender: translator.gender(p.gender),
+          size: translator.size(p.size),
+          ageCategory: translator.age(p.ageCategory)
         }));
 
         this.filteredPets = [...this.pets];
       },
       error: (err: any) => console.error('Erro ao carregar animais:', err)
     });
-  }
-
-  translateSpecies(v: string) {
-    return v === 'DOG' ? 'Cachorro' : 'Gato';
-  }
-
-  translateGender(v: string) {
-    return v === 'MALE' ? 'Macho' : 'Fêmea';
-  }
-
-  translateSize(v: string) {
-    return v === 'SMALL' ? 'Pequeno' : v === 'MEDIUM' ? 'Médio' : 'Grande';
-  }
-
-  translateAge(v: string) {
-    return v === 'FILHOTE' ? 'Filhote' : v === 'ADULTO' ? 'Adulto' : 'Idoso';
   }
 
   toggleDropdown() {

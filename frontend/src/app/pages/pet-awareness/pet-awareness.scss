@@ -1,97 +1,161 @@
 main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 40px 20px;
+  background: #f5f9fc; // fundo leve ONG
 }
 
 .awareness-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 34, 68, 0.08);
+}
+
+.text-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 26px;
+  text-align: left;
+}
+
+/* ---- Títulos estilo campanha ---- */
+h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0d2d46;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+/* TÍTULOS COM ÍCONE */
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0d2d46;
+  margin-top: 10px;
+  display: flex;
   align-items: center;
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
+  gap: 8px;
+}
 
-  h2 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #0d2d46;
+.icon-title {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* ---- Texto principais ---- */
+p {
+  font-size: 1.18rem;
+  line-height: 1.7;
+  color: #36454F;
+  font-weight: 400;
+}
+
+/* ---- LISTA PADRÃO ---- */
+.default-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  li {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #36454F;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
   }
+}
 
-  h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #0d2d46;
-    margin-top: 6px;
-  }
+/* ---- IMAGEM ---- */
+.div-img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-  p {
-    font-size: 1.1rem;
-    line-height: 1.4;
-    color: #333;
-  }
+.awareness-img {
+  width: 100%;
+  max-width: 680px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border: 6px solid #ffffff;
+  background: #fff;
+}
 
-  .highlight {
-    font-weight: 600;
-    color: #dd2222;
-  }
+/* ---- MENSAGEM FINAL ---- */
+.final-message {
+  font-size: 1.22rem;
+  font-weight: 500;
+  color: #0d2d46;
+  line-height: 1.7;
+  background: #f0f6ff;
+  padding: 18px 20px;
+  border-left: 4px solid #ee6205;
+  border-radius: 8px;
+}
 
-  .awareness-img {
-    width: 100%;
-    border-radius: 8px;
-    object-fit: cover;
-    margin: 16px 0;
-  }
+/* ---- CTA ---- */
+.cta-button {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 16px 28px;
+  background: transparent;
+  color: #ee6205;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: 1px solid #ee6205;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 6px hsla(24, 96%, 48%, 0.25);
+  transition: all 0.25s ease;
+  max-width: 350px;
+  align-self: center;
+  cursor: pointer;
+}
 
+.cta-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px hsla(24, 96%, 48%, 0.30);
+  background: #ee6205;
+  color: #fff;
+}
 
-  .mobile-img {
-    display: block;
-    max-width: 300px;
+/* ---- RESPONSIVO ---- */
+@media (min-width: 900px) {
+  .awareness-container {
+    padding: 50px 60px;
   }
 
   .text-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    text-align: left;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.7rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 1.25;
   }
 
-  /* Tablet e Desktop */
-  @media (min-width: 600px) {
-    .awareness-img {
-      max-width: 500px;
-    }
-
-    .text-content {
-      text-align: center;
-    }
-  }
-
-  @media (min-width: 1000px) {
-    .mobile-img {
-      max-width: 470px;
-    }
-
-    .div-img {
-      background-color: #f0f0f0;
-      border: 1px solid #d0d0d0;
-      padding: 16px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-width: 350px;
-      margin: 0 auto;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    }
-
-
-    .text-content {
-      margin-bottom: 10px;
-      margin-top: 10px;
-    }
+  .cta-button {
+    width: 100%;
   }
 }

@@ -1,57 +1,121 @@
 .footer {
-  background-color: #0d2d46;
-
+  background: linear-gradient(180deg, #0d2d46 0%, #0a2236 100%);
   color: white;
-  padding: 20px 15px;
-  text-align: center;
+  padding: 45px 20px;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 60px;
+
+  display: flex;
+  justify-content: center;
 }
 
-.footer-content {
-  max-width: 450px;
-  margin: 0 auto;
+/* Wrapper geral */
+.footer-wrapper {
+  width: 100%;
+  max-width: 900px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+
+  flex-wrap: wrap;
+}
+
+/* -----------------------------------------
+   COLUNA ESQUERDA: LOGO + NOME + TEXTO
+------------------------------------------*/
+.footer-brand h4 {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  font-family: 'Barlow', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+
+  img {
+    width: 38px;
+    height: auto;
+  }
+}
+
+.footer-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 300px;
+  opacity: 0.85;
+}
+
+/* -----------------------------------------
+   COLUNA DIREITA: REDES SOCIAIS + COPYRIGHT
+------------------------------------------*/
+.footer-right {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.social{
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: 20px;
 }
 
-.footer p {
-  font-size: 0.8rem;
-  margin-bottom: 15px;
-  opacity: 0.8;
+.social-label {
+  font-size: 0.9rem;
+  opacity: 0.85;
 }
 
-.footer-links {
-  margin-bottom: 15px;
-  font-size: 0.8rem;
+.social-icons {
+  display: flex;
+  gap: 18px;
+
+  a {
+    color: rgba(255, 255, 255, 0.836);
+    font-size: 1.45rem;
+    transition: 0.2s ease;
+
+    &:hover {
+      color: #ff9900;
+      transform: translateY(-3px);
+    }
+  }
 }
 
-.footer-links a {
-  color: white;
-  text-decoration: none;
-  margin: 0 5px;
-  opacity: 0.9;
-  transition: opacity 0.2s;
+.footer-copy {
+  font-size: 0.82rem;
+  opacity: 0.75;
+  margin-top: 8px;
+  text-align: right;
 }
 
-.footer-links a:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
+/* -----------------------------------------
+   RESPONSIVO
+------------------------------------------*/
+@media (max-width: 720px) {
+  .footer-wrapper {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
 
-.separator {
-  color: #ff9900;
-  font-weight: 700;
-}
+  .footer-right {
+    align-items: center;
+  }
 
-.social-icons a {
-  color: white;
-  font-size: 1.2rem;
-  margin: 0 10px;
-  transition: color 0.2s;
-}
+  .footer-copy {
+    text-align: center;
+  }
 
-.social-icons a:hover {
-  color: #ff9900;
+  .footer-description {
+    max-width: 100%;
+  }
+
+  .footer-brand h4 {
+    justify-content: center;
+  }
 }

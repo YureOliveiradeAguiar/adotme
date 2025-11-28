@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AnimalService, Pet } from '@services/animal.service';
 import { Header } from '@components/header/header';
 import { Footer } from '@components/footer/footer';
+import { translator } from '@utils/translators'; 
 
 @Component({
   selector: 'page-animal-detail',
@@ -29,13 +30,12 @@ export class AnimalDetail implements OnInit {
         next: (pet) => {
           this.pet = {
             ...pet,
-            species: this.translateSpecies(pet.species),
-            gender: this.translateGender(pet.gender),
-            size: this.translateSize(pet.size),
-            ageCategory: this.translateAge(pet.ageCategory),
+            species: translator.species(pet.species),       
+            gender: translator.gender(pet.gender),          
+            size: translator.size(pet.size),                
+            ageCategory: translator.age(pet.ageCategory),  
           };
 
-          // Usa a primeira imagem do pet
           this.photoUrl = this.animalService.getFirstImageUrl(pet);
         },
         error: (err) => {
@@ -45,19 +45,4 @@ export class AnimalDetail implements OnInit {
     }
   }
 
-  translateSpecies(v: string) {
-    return v === 'DOG' ? 'Cachorro' : 'Gato';
-  }
-
-  translateGender(v: string) {
-    return v === 'MALE' ? 'Macho' : 'Fêmea';
-  }
-
-  translateSize(v: string) {
-    return v === 'SMALL' ? 'Pequeno' : v === 'MEDIUM' ? 'Médio' : 'Grande';
-  }
-
-  translateAge(v: string) {
-    return v === 'FILHOTE' ? 'Filhote' : v === 'ADULTO' ? 'Adulto' : 'Idoso';
-  }
 }

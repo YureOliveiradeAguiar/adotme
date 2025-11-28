@@ -3,7 +3,7 @@
     <main class="admin-content app-content">
         <div class="container">
             <div class="admin-header">
-                <h1>Painel Administrativo</h1>
+                <h1><i class="fa-solid fa-paw"></i>Painel Administrativo</h1>
                 <p>Gerencie os pets disponíveis para adoção</p>
             </div>
 
@@ -31,26 +31,26 @@
                         <div class="button-group">
                             <button type="button" [class.active]="newPet.species === 'DOG'"
                                 (click)="newPet.species = 'DOG'">
-                                🐕 Cachorro
+                                <i class="fa-solid fa-dog"></i> Cachorro
                             </button>
                             <button type="button" [class.active]="newPet.species === 'CAT'"
                                 (click)="newPet.species = 'CAT'">
-                                🐈 Gato
+                                <i class="fa-solid fa-cat"></i> Gato
                             </button>
                         </div>
                     </div>
 
                     <!-- Raça (Botões + Input condicional) -->
-                    <div class="form-group">
+                    <div class="form-group raca-area">
                         <label>Raça *</label>
                         <div class="button-group">
                             <button type="button" [class.active]="newPet.breed === 'SRD'"
                                 (click)="newPet.breed = 'SRD'; customBreed = ''">
-                                SRD
+                                <i class="fa-solid fa-shield-dog"></i> SRD
                             </button>
                             <button type="button" [class.active]="newPet.breed !== 'SRD'"
                                 (click)="newPet.breed = 'OTHER'">
-                                Outro
+                                <i class="fa-solid fa-otter"></i> Outro
                             </button>
                         </div>
                         <input *ngIf="newPet.breed !== 'SRD'" type="text" [(ngModel)]="customBreed"
@@ -63,15 +63,15 @@
                         <div class="button-group">
                             <button type="button" [class.active]="newPet.ageCategory === 'FILHOTE'"
                                 (click)="newPet.ageCategory = 'FILHOTE'">
-                                Filhote
+                                <i class="fa-solid fa-baby"></i> Filhote
                             </button>
                             <button type="button" [class.active]="newPet.ageCategory === 'ADULTO'"
                                 (click)="newPet.ageCategory = 'ADULTO'">
-                                Adulto
+                                <i class="fa-solid fa-child"></i> Adulto
                             </button>
                             <button type="button" [class.active]="newPet.ageCategory === 'IDOSO'"
                                 (click)="newPet.ageCategory = 'IDOSO'">
-                                Idoso
+                                <i class="fa-solid fa-person-cane"></i> Idoso
                             </button>
                         </div>
                     </div>
@@ -101,11 +101,11 @@
                         <div class="button-group">
                             <button type="button" [class.active]="newPet.gender === 'MALE'"
                                 (click)="newPet.gender = 'MALE'">
-                                Macho
+                                <i class="fa-solid fa-mars"></i> Macho
                             </button>
                             <button type="button" [class.active]="newPet.gender === 'FEMALE'"
                                 (click)="newPet.gender = 'FEMALE'">
-                                Fêmea
+                                <i class="fa-solid fa-venus"></i> Fêmea
                             </button>
                         </div>
                     </div>
@@ -129,12 +129,11 @@
                     <div class="form-group full-width">
                         <label>Descrição</label>
                         <textarea [(ngModel)]="newPet.description" placeholder="Descreva o pet (opcional)"></textarea>
-                        <small>Deixe em branco para usar a descrição padrão</small>
                     </div>
 
                     <!-- Upload de Imagens -->
                     <div class="form-group full-width">
-                        <label>Imagens (máx. 5)</label>
+                        <label>Foto do Pet</label>
                         <input type="file" (change)="onImageSelected($event)" multiple accept="image/*"
                             class="file-input">
 
@@ -171,7 +170,7 @@
                         <option value="CAT">Gatos</option>
                     </select>
 
-                    <button class="btn-secondary" (click)="clearFilters()">Limpar</button>
+                    <button class="btn-secondary" (click)="clearFilters()"><i class="fa-solid fa-trash"></i> Limpar</button>
                 </div>
 
                 <!-- Lista -->
@@ -186,10 +185,10 @@
                         </div>
                         <div class="pet-actions">
                             <button class="btn-edit" (click)="startEditPet(pet)">
-                                Editar
+                                <i class="fa-regular fa-pen-to-square"></i> Editar
                             </button>
-                            <button class="btn-delete" (click)="deletePet(pet)">
-                                Excluir
+                            <button class="btn-secondary" (click)="deletePet(pet)">
+                                <i class="fa-solid fa-delete-left"></i> Excluir
                             </button>
                         </div>
                     </div>

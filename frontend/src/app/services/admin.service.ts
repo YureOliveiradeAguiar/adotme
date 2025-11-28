@@ -32,6 +32,8 @@ export class AdminService {
         formData.append('ageCategory', petData.ageCategory);
         formData.append('size', petData.size);
         formData.append('gender', petData.gender);
+
+        // CORREÇÃO: Converter boolean para string explicitamente
         formData.append('vaccinated', petData.vaccinated.toString());
         formData.append('neutered', petData.neutered.toString());
 
@@ -44,20 +46,54 @@ export class AdminService {
             formData.append('images', image);
         });
 
+        // Debug
+        console.log('📤 Enviando para criação:', {
+            name: petData.name,
+            species: petData.species,
+            breed: petData.breed,
+            vaccinated: petData.vaccinated,
+            neutered: petData.neutered,
+            vaccinatedString: petData.vaccinated.toString(),
+            neuteredString: petData.neutered.toString()
+        });
+
         return this.http.post(this.apiUrl, formData);
     }
 
-    updatePet(id: string, petData: any, images: File[]): Observable<any> {
+    updatePet(id: string, petData: CreatePetRequest, images: File[]): Observable<any> {
         const formData = new FormData();
 
-        Object.keys(petData).forEach(key => {
-            if (petData[key] !== null && petData[key] !== undefined) {
-                formData.append(key, petData[key].toString());
-            }
-        });
+        // Adiciona todos os campos do petData
+        formData.append('name', petData.name);
+        formData.append('species', petData.species);
+        formData.append('breed', petData.breed);
+        formData.append('ageCategory', petData.ageCategory);
+        formData.append('size', petData.size);
+        formData.append('gender', petData.gender);
 
+        // CORREÇÃO: Converter boolean para string explicitamente
+        formData.append('vaccinated', petData.vaccinated.toString());
+        formData.append('neutered', petData.neutered.toString());
+
+        if (petData.description) {
+            formData.append('description', petData.description);
+        }
+
+        // Adiciona as imagens
         images.forEach((image, index) => {
             formData.append('images', image);
+        });
+
+        // Debug
+        console.log('📤 Enviando para atualização:', {
+            id: id,
+            name: petData.name,
+            species: petData.species,
+            breed: petData.breed,
+            vaccinated: petData.vaccinated,
+            neutered: petData.neutered,
+            vaccinatedString: petData.vaccinated.toString(),
+            neuteredString: petData.neutered.toString()
         });
 
         return this.http.patch(`${this.apiUrl}/${id}`, formData);

@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from "@components/header/header";
 import { Footer } from "@components/footer/footer";
 import { AnimalService } from '@services/animal.service';
 import { AdminService, CreatePetRequest } from '@services/admin.service';
+import { translator } from '@utils/translators';
+import { reverseTranslator } from '@utils/reverse-translator';
 
 interface Pet {
     id: string;
@@ -27,7 +29,7 @@ interface Pet {
     standalone: true,
     imports: [CommonModule, FormsModule, Header, Footer]
 })
-export class AdminPanel implements OnInit {
+export class AdminPanel implements OnInit, OnDestroy {
     pets: Pet[] = [];
     filteredPets: Pet[] = [];
 
@@ -35,18 +37,18 @@ export class AdminPanel implements OnInit {
     showAddForm = false;
     editingPet: Pet | null = null;
 
-    // Dados do novo pet
-    newPet: Partial<CreatePetRequest> = {
-        name: '',
-        species: 'DOG',
-        breed: 'SRD',
-        ageCategory: 'FILHOTE',
-        size: 'SMALL',
-        gender: 'MALE',
-        vaccinated: false,
-        neutered: false,
-        description: 'Um pet amoroso em busca de um novo lar!'
-    };
+    // Dados do novo pet - AGORA COM VALORES EXPLÍCITOS
+    newPet: {
+        name: string;
+        species: 'DOG' | 'CAT';
+        breed: string;
+        ageCategory: 'FILHOTE' | 'ADULTO' | 'IDOSO';
+        size: 'SMALL' | 'MEDIUM' | 'LARGE';
+        gender: 'MALE' | 'FEMALE';
+        vaccinated: boolean;
+        neutered: boolean;
+        description?: string;
+    } = this.getDefaultPetData();
 
     customBreed = '';
     selectedImages: File[] = [];
@@ -64,22 +66,28 @@ export class AdminPanel implements OnInit {
         this.loadPets();
     }
 
+    // === MÉTODOS DE CARREGAMENTO DE DADOS ===
     loadPets() {
         this.animalService.getAnimals().subscribe({
             next: (data: any[]) => {
-                this.pets = data;
+                this.pets = this.translatePets(data);
                 this.filteredPets = [...this.pets];
             },
             error: (err: any) => console.error('Erro ao carregar animais:', err)
         });
     }
 
-    // Método para preview de imagens
-    getImageUrl(file: File): string {
-        return URL.createObjectURL(file);
+    private translatePets(pets: any[]): Pet[] {
+        return pets.map(pet => ({
+            ...pet,
+            species: translator.species(pet.species),
+            gender: translator.gender(pet.gender),
+            size: translator.size(pet.size),
+            ageCategory: translator.age(pet.ageCategory)
+        }));
     }
 
-    // Métodos do formulário
+    // === MÉTODOS DO FORMULÁRIO ===
     startAddPet() {
         this.showAddForm = true;
         this.editingPet = null;
@@ -89,13 +97,15 @@ export class AdminPanel implements OnInit {
     startEditPet(pet: Pet) {
         this.showAddForm = true;
         this.editingPet = pet;
+
+        // CORREÇÃO: Atribuição direta sem Partial
         this.newPet = {
             name: pet.name,
-            species: pet.species as 'DOG' | 'CAT',
+            species: reverseTranslator.species(pet.species) as 'DOG' | 'CAT',
             breed: pet.breed,
-            ageCategory: pet.ageCategory as 'FILHOTE' | 'ADULTO' | 'IDOSO',
-            size: pet.size as 'SMALL' | 'MEDIUM' | 'LARGE',
-            gender: pet.gender as 'MALE' | 'FEMALE',
+            ageCategory: reverseTranslator.age(pet.ageCategory) as 'FILHOTE' | 'ADULTO' | 'IDOSO',
+            size: reverseTranslator.size(pet.size) as 'SMALL' | 'MEDIUM' | 'LARGE',
+            gender: reverseTranslator.gender(pet.gender) as 'MALE' | 'FEMALE',
             vaccinated: pet.vaccinated,
             neutered: pet.neutered,
             description: pet.description || 'Um pet amoroso em busca de um novo lar!'
@@ -116,25 +126,39 @@ export class AdminPanel implements OnInit {
     }
 
     resetForm() {
-        this.newPet = {
-            name: '',
-            species: 'DOG',
-            breed: 'SRD',
-            ageCategory: 'FILHOTE',
-            size: 'SMALL',
-            gender: 'MALE',
-            vaccinated: false,
-            neutered: false,
-            description: 'Um pet amoroso em busca de um novo lar!'
-        };
+        this.newPet = this.getDefaultPetData();
         this.customBreed = '';
         this.selectedImages = [];
     }
 
-    onBreedChange() {
-        if (this.newPet.breed === 'OTHER') {
-            this.newPet.breed = '';
-        }
+    private getDefaultPetData() {
+        return {
+            name: '',
+            species: 'DOG' as 'DOG' | 'CAT',
+            breed: 'SRD',
+            ageCategory: 'FILHOTE' as 'FILHOTE' | 'ADULTO' | 'IDOSO',
+            size: 'SMALL' as 'SMALL' | 'MEDIUM' | 'LARGE',
+            gender: 'MALE' as 'MALE' | 'FEMALE',
+            vaccinated: false,
+            neutered: false,
+            description: 'Um pet amoroso em busca de um novo lar!'
+        };
+    }
+
+    // === MÉTODOS PARA OS BOTÕES BOOLEANOS ===
+    toggleVaccinated() {
+        this.newPet.vaccinated = !this.newPet.vaccinated;
+        console.log('🔄 Vacinado alterado para:', this.newPet.vaccinated);
+    }
+
+    toggleNeutered() {
+        this.newPet.neutered = !this.newPet.neutered;
+        console.log('🔄 Castrado alterado para:', this.newPet.neutered);
+    }
+
+    // === MÉTODOS DE IMAGENS ===
+    getImageUrl(file: File): string {
+        return URL.createObjectURL(file);
     }
 
     onImageSelected(event: any) {
@@ -145,80 +169,104 @@ export class AdminPanel implements OnInit {
     }
 
     removeImage(index: number) {
-        // Revogar a URL do objeto antes de remover
         URL.revokeObjectURL(this.getImageUrl(this.selectedImages[index]));
         this.selectedImages.splice(index, 1);
     }
 
-    submitPet() {
-        if (!this.newPet.name) {
-            alert('Por favor, informe o nome do pet');
-            return;
-        }
-
-        // Validar raça customizada
-        if (this.newPet.breed === 'OTHER' && !this.customBreed.trim()) {
-            alert('Por favor, informe a raça do pet');
-            return;
-        }
-
-        const petData: CreatePetRequest = {
-            name: this.newPet.name!,
-            species: this.newPet.species!,
-            breed: this.newPet.breed === 'OTHER' ? this.customBreed : this.newPet.breed!,
-            ageCategory: this.newPet.ageCategory!,
-            size: this.newPet.size!,
-            gender: this.newPet.gender!,
-            vaccinated: this.newPet.vaccinated!,
-            neutered: this.newPet.neutered!,
-            description: this.newPet.description
-        };
-
-        if (this.editingPet) {
-            // Editar pet existente
-            this.adminService.updatePet(this.editingPet.id, petData, this.selectedImages).subscribe({
-                next: () => {
-                    this.loadPets();
-                    this.cancelForm();
-                    alert('Pet atualizado com sucesso!');
-                },
-                error: (err: any) => {
-                    console.error('Erro ao atualizar pet:', err);
-                    alert('Erro ao atualizar pet');
-                }
-            });
-        } else {
-            // Criar novo pet
-            this.adminService.createPet(petData, this.selectedImages).subscribe({
-                next: () => {
-                    this.loadPets();
-                    this.cancelForm();
-                    alert('Pet cadastrado com sucesso!');
-                },
-                error: (err: any) => {
-                    console.error('Erro ao cadastrar pet:', err);
-                    alert('Erro ao cadastrar pet');
-                }
-            });
+    // === MÉTODOS DE VALIDAÇÃO E SUBMISSÃO ===
+    onBreedChange() {
+        if (this.newPet.breed === 'OTHER') {
+            this.newPet.breed = '';
         }
     }
 
+    submitPet() {
+        if (!this.validateForm()) return;
+
+        const petData = this.preparePetData();
+
+        // DEBUG: Verificar dados antes do envio
+        console.log('🔍 DEBUG FINAL - Dados antes do envio:', {
+            name: petData.name,
+            species: petData.species,
+            breed: petData.breed,
+            vaccinated: petData.vaccinated,
+            neutered: petData.neutered,
+            typeOfVaccinated: typeof petData.vaccinated,
+            typeOfNeutered: typeof petData.neutered
+        });
+
+        if (this.editingPet) {
+            this.updatePet(petData);
+        } else {
+            this.createPet(petData);
+        }
+    }
+
+    private validateForm(): boolean {
+        if (!this.newPet.name) {
+            alert('Por favor, informe o nome do pet');
+            return false;
+        }
+
+        if (this.newPet.breed === 'OTHER' && !this.customBreed.trim()) {
+            alert('Por favor, informe a raça do pet');
+            return false;
+        }
+
+        return true;
+    }
+
+    private preparePetData(): CreatePetRequest {
+        return {
+            name: this.newPet.name,
+            species: this.newPet.species,
+            breed: this.newPet.breed === 'OTHER' ? this.customBreed : this.newPet.breed,
+            ageCategory: this.newPet.ageCategory,
+            size: this.newPet.size,
+            gender: this.newPet.gender,
+            vaccinated: this.newPet.vaccinated,
+            neutered: this.newPet.neutered,
+            description: this.newPet.description
+        };
+    }
+
+    private createPet(petData: CreatePetRequest) {
+        this.adminService.createPet(petData, this.selectedImages).subscribe({
+            next: () => this.handleSuccess('Pet cadastrado com sucesso!'),
+            error: (err: any) => this.handleError('Erro ao cadastrar pet', err)
+        });
+    }
+
+    private updatePet(petData: CreatePetRequest) {
+        this.adminService.updatePet(this.editingPet!.id, petData, this.selectedImages).subscribe({
+            next: () => this.handleSuccess('Pet atualizado com sucesso!'),
+            error: (err: any) => this.handleError('Erro ao atualizar pet', err)
+        });
+    }
+
+    private handleSuccess(message: string) {
+        this.loadPets();
+        this.cancelForm();
+        alert(message);
+    }
+
+    private handleError(message: string, err: any) {
+        console.error(`${message}:`, err);
+        alert(message);
+    }
+
+    // === MÉTODOS DE AÇÕES ===
     deletePet(pet: Pet) {
         if (confirm(`Tem certeza que deseja excluir ${pet.name}?`)) {
             this.adminService.deletePet(pet.id).subscribe({
-                next: () => {
-                    this.loadPets();
-                    alert('Pet excluído com sucesso!');
-                },
-                error: (err: any) => {
-                    console.error('Erro ao excluir pet:', err);
-                    alert('Erro ao excluir pet');
-                }
+                next: () => this.handleSuccess('Pet excluído com sucesso!'),
+                error: (err: any) => this.handleError('Erro ao excluir pet', err)
             });
         }
     }
 
-    // Filtros
+    // === MÉTODOS DE FILTRO ===
     applyFilters() {
         this.filteredPets = this.pets.filter(pet => {
             const matchesType = !this.filterType || pet.species === this.filterType;
@@ -236,7 +284,7 @@ export class AdminPanel implements OnInit {
         this.filteredPets = [...this.pets];
     }
 
-    // Limpar URLs de preview quando o componente for destruído
+    // === CLEANUP ===
     ngOnDestroy() {
         this.selectedImages.forEach(file => {
             URL.revokeObjectURL(this.getImageUrl(file));

@@ -37,7 +37,9 @@ main {
 .animal-content {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     flex: 1;
 }
 
