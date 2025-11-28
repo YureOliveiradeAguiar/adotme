@@ -66,7 +66,7 @@ export class PetsController {
   @Header('Content-Disposition', 'inline')
   getImage(
     @Param('filename') filename: string,
-    @Res({ passthrough: true }) res: any, 
+    @Res({ passthrough: true }) res: any,
   ): StreamableFile {
     const imagePath = this.petsService.getImagePath(filename);
     const file = createReadStream(join(process.cwd(), imagePath));

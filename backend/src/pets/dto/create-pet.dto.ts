@@ -1,16 +1,15 @@
-import { IsEnum, IsString, IsUUID, MaxLength, IsBoolean, IsOptional, IsArray } from 'class-validator';
+import { IsEnum, IsString, IsBoolean, IsOptional, IsArray } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { Species, Size, Gender, AgeCategory } from '../enums/pet.enums';
 
 export class CreatePetDto {
   @IsString()
-  @MaxLength(50)
   name: string;
 
   @IsEnum(Species)
   species: Species;
 
   @IsString()
-  @MaxLength(50)
   breed: string;
 
   @IsEnum(AgeCategory)
@@ -23,9 +22,21 @@ export class CreatePetDto {
   gender: Gender;
 
   @IsBoolean()
+  @Transform(({ value }) => {
+    // Converte string para boolean
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
+  })
   vaccinated: boolean;
 
   @IsBoolean()
+  @Transform(({ value }) => {
+    // Converte string para boolean
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
+  })
   neutered: boolean;
 
   @IsOptional()
