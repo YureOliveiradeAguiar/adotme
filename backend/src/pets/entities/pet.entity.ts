@@ -36,7 +36,6 @@ export class Pet {
 	@Column('simple-array', { nullable: true })
 	images?: string[];
 
-	@Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+	@Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
 	createdAt: Date;
-
 }
