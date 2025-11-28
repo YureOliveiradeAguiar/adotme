@@ -59,17 +59,4 @@ export class PetsController {
   remove(@Param('id') id: string) {
     return this.petsService.remove(id);
   }
-
-  // Endpoint para servir imagens
-  @Get('image/:filename')
-  @Header('Content-Type', 'image/jpeg')
-  @Header('Content-Disposition', 'inline')
-  getImage(
-    @Param('filename') filename: string,
-    @Res({ passthrough: true }) res: any,
-  ): StreamableFile {
-    const imagePath = this.petsService.getImagePath(filename);
-    const file = createReadStream(join(process.cwd(), imagePath));
-    return new StreamableFile(file);
-  }
 }

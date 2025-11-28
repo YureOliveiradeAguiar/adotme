@@ -1,118 +1,86 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreatePetDto } from './dto/create-pet.dto';
-import { UpdatePetDto } from './dto/update-pet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pet } from './entities/pet.entity';
-import { ImageCompressor } from '../utils/image-compressor.util';
-import * as fs from 'fs';
-import * as path from 'path';
+import { CreatePetDto } from './dto/create-pet.dto';
+import { UpdatePetDto } from './dto/update-pet.dto';
+import { v2 as cloudinary } from 'cloudinary';
+import { ConfigService } from '@nestjs/config';
+import { Readable } from 'stream';
 
 @Injectable()
 export class PetsService {
-
   constructor(
     @InjectRepository(Pet)
     private petsRepository: Repository<Pet>,
-  ) { }
+    private configService: ConfigService,
+  ) {
+    cloudinary.config({
+      cloud_name: this.configService.get('CLOUDINARY_CLOUD_NAME'),
+      api_key: this.configService.get('CLOUDINARY_API_KEY'),
+      api_secret: this.configService.get('CLOUDINARY_API_SECRET'),
+    });
+  }
 
   async create(createPetDto: CreatePetDto, images?: Express.Multer.File[]): Promise<Pet> {
-    const compressedImages: string[] = [];
+    const uploadedImages: string[] = [];
 
-    // Processa as imagens se existirem
     if (images && images.length > 0) {
-      for (const image of images) {
-        const compressedFilename = `compressed-${image.filename}`;
-        const compressedPath = path.join('uploads/pets', compressedFilename);
-
-        await ImageCompressor.compressImage(
-          image.path,
-          compressedPath,
-          70, // qualidade
-          800 // largura máxima
-        );
-
-        compressedImages.push(compressedFilename);
+      for (const file of images) {
+        const url = await this.uploadToCloudinary(file);
+        uploadedImages.push(url);
       }
     }
 
-    // Cria o pet com as imagens comprimidas
     const pet = this.petsRepository.create({
       ...createPetDto,
-      images: compressedImages,
+      images: uploadedImages,
     });
 
     return await this.petsRepository.save(pet);
   }
 
-  findAll() {
-    return this.petsRepository.find();
+  async update(id: string, updatePetDto: UpdatePetDto, images?: Express.Multer.File[]): Promise<Pet> {
+    const pet = await this.findOne(id);
+
+    if (images && images.length > 0) {
+      const uploadedImages: string[] = [];
+      for (const file of images) {
+        const url = await this.uploadToCloudinary(file);
+        uploadedImages.push(url);
+      }
+      pet.images = uploadedImages;
+    }
+
+    Object.assign(pet, updatePetDto);
+    return await this.petsRepository.save(pet);
   }
 
-  async findOne(id: string) {
+  async remove(id: string): Promise<Pet> {
+    const pet = await this.findOne(id);
+    return await this.petsRepository.remove(pet);
+  }
+
+  async findOne(id: string): Promise<Pet> {
     const pet = await this.petsRepository.findOne({ where: { id } });
     if (!pet) throw new NotFoundException('Pet not found');
     return pet;
   }
 
-  async update(id: string, updatePetDto: UpdatePetDto, images?: Express.Multer.File[]): Promise<Pet> {
-    const pet = await this.findOne(id);
-
-    // Se novas imagens foram enviadas
-    if (images && images.length > 0) {
-      // Remove imagens antigas do sistema de arquivos
-      if (pet.images && pet.images.length > 0) {
-        for (const oldImage of pet.images) {
-          const oldImagePath = path.join('uploads/pets', oldImage);
-          if (fs.existsSync(oldImagePath)) {
-            fs.unlinkSync(oldImagePath);
-          }
-        }
-      }
-
-      // Comprime as novas imagens
-      const compressedImages: string[] = [];
-      for (const image of images) {
-        const compressedFilename = `compressed-${image.filename}`;
-        const compressedPath = path.join('uploads/pets', compressedFilename);
-
-        await ImageCompressor.compressImage(
-          image.path,
-          compressedPath,
-          70,
-          800
-        );
-
-        compressedImages.push(compressedFilename);
-      }
-
-      // Atualiza as imagens do pet
-      pet.images = compressedImages;
-    }
-
-    // Atualiza os outros campos
-    Object.assign(pet, updatePetDto);
-    return await this.petsRepository.save(pet);
+  findAll(): Promise<Pet[]> {
+    return this.petsRepository.find();
   }
 
-  async remove(id: string) {
-    const pet = await this.findOne(id);
-
-    // Remove as imagens do sistema de arquivos
-    if (pet.images && pet.images.length > 0) {
-      for (const image of pet.images) {
-        const imagePath = path.join('uploads/pets', image);
-        if (fs.existsSync(imagePath)) {
-          fs.unlinkSync(imagePath);
+  private uploadToCloudinary(file: Express.Multer.File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: 'pets' },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result?.secure_url!);
         }
-      }
-    }
-
-    return await this.petsRepository.remove(pet);
-  }
-
-  // Método auxiliar para servir imagens
-  getImagePath(filename: string): string {
-    return path.join('uploads/pets', filename);
+      );
+      Readable.from(file.buffer).pipe(stream);
+    });
   }
 }
