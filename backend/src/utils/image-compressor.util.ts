@@ -10,21 +10,46 @@ export class ImageCompressor {
         maxWidth: number = 800,
     ): Promise<string> {
         try {
-            await sharp(inputPath)
-                .resize(maxWidth, null, {
-                    withoutEnlargement: true,
-                    fit: 'inside',
-                })
-                .jpeg({ quality })
-                .png({ quality })
-                .toFile(outputPath);
+            // Verifica se o arquivo original existe
+            if (!fs.existsSync(inputPath)) {
+                throw new Error('Arquivo original não encontrado');
+            }
 
-            // Remove o arquivo original após compressão
-            fs.unlinkSync(inputPath);
+            // Obtém metadados da imagem para determinar o formato
+            const metadata = await sharp(inputPath).metadata();
+            const format = metadata.format;
+
+            let sharpInstance = sharp(inputPath).resize(maxWidth, null, {
+                withoutEnlargement: true,
+                fit: 'inside',
+            });
+
+            // Aplica compressão baseada no formato
+            if (format === 'png') {
+                sharpInstance = sharpInstance.png({
+                    quality: Math.min(quality + 20, 100), // PNG usa qualidade diferente
+                    compressionLevel: 9
+                });
+            } else {
+                // Padrão para JPEG e outros formatos
+                sharpInstance = sharpInstance.jpeg({
+                    quality: quality,
+                    mozjpeg: true // Melhor compressão
+                });
+            }
+
+            await sharpInstance.toFile(outputPath);
+
+            // Remove o arquivo original apenas se a compressão foi bem-sucedida
+            if (fs.existsSync(outputPath)) {
+                fs.unlinkSync(inputPath);
+            }
 
             return outputPath;
         } catch (error) {
-            throw new Error(`Erro ao comprimir imagem: ${error.message}`);
+            // Se houver erro, mantém o arquivo original
+            console.error('Erro ao comprimir imagem:', error);
+            return inputPath;
         }
     }
 
@@ -33,13 +58,26 @@ export class ImageCompressor {
         quality: number = 70,
         maxWidth: number = 800,
     ): Promise<Buffer> {
-        return sharp(buffer)
-            .resize(maxWidth, null, {
-                withoutEnlargement: true,
-                fit: 'inside',
-            })
-            .jpeg({ quality })
-            .png({ quality })
-            .toBuffer();
+        const metadata = await sharp(buffer).metadata();
+        const format = metadata.format;
+
+        let sharpInstance = sharp(buffer).resize(maxWidth, null, {
+            withoutEnlargement: true,
+            fit: 'inside',
+        });
+
+        if (format === 'png') {
+            sharpInstance = sharpInstance.png({
+                quality: Math.min(quality + 20, 100),
+                compressionLevel: 9
+            });
+        } else {
+            sharpInstance = sharpInstance.jpeg({
+                quality: quality,
+                mozjpeg: true
+            });
+        }
+
+        return sharpInstance.toBuffer();
     }
 }

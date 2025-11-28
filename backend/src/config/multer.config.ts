@@ -6,19 +6,18 @@ export const multerConfig = {
     storage: diskStorage({
         destination: './uploads/pets',
         filename: (req, file, cb) => {
-            const fileExtName = extname(file.originalname);
-            const fileName = `${uuidv4()}${fileExtName}`;
+            const fileExtName = extname(file.originalname).toLowerCase();
+            const randomName = uuidv4();
+            const fileName = `${randomName}${fileExtName}`;
             cb(null, fileName);
         },
     }),
     fileFilter: (req, file, cb) => {
-        if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+        const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        if (allowedMimes.includes(file.mimetype)) {
             cb(null, true);
         } else {
-            cb(new Error('Formato de arquivo não suportado'), false);
+            cb(new Error('Formato de arquivo não suportado. Use apenas JPEG, PNG ou GIF.'), false);
         }
-    },
-    limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB
     },
 };
